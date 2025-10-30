@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "product-agent-cli"
+version = "0.1.0"
+description = "A CLI tool to interactively plan software features with an AI agent."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "google-generativeai", # The Google AI client
+    "python-dotenv",       # To manage the API key
+    "rich"                 # For nicer text/markdown in the terminal
+]
+
+[project.scripts]
+# This line creates the `plan` command and maps it
+# to the `main` function in our `src/product_agent_cli/main.py` file.
+plan = "product_agent_cli.main:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
