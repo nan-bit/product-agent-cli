@@ -76,7 +76,7 @@ Once set up, you can start the feature planning flow with a single command.
 2.  **Run the Agent:**
     Start the interactive session by running:
     ```bash
-    product-agent
+    plan "Describe the feature you want to build"
     ```
     The agent will ask for the feature you want to build and guide you through the rest of the process.
 
