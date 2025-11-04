@@ -258,7 +258,7 @@ def main(console: Console = None):
             user_input = console.input("[bold green]You:[/bold green] ").strip()
 
             if user_input.lower() in ["done", "save", "finish", "exit", "quit", "q"]:
-                console.print("\n[bold cyan]Great. I'll synthesize our conversation and generate the artifacts...[/bold cyan]")
+                console.print("\n[bold cyan]Great. I'll synthesize our conversation and generate the artifacts...[/cyan]")
                 break
             
             if not user_input:
@@ -268,7 +268,7 @@ def main(console: Console = None):
             console.print(Markdown(f"**Agent:** {response.text}"))
 
     except (KeyboardInterrupt, EOFError):
-        console.print("\n[bold cyan]Session ended. Synthesizing files...[/bold cyan]")
+        console.print("\n[bold][cyan]Session ended. Synthesizing files...[/cyan][/bold]")
     
     # 6. Final Synthesis
     try:
