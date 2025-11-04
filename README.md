@@ -1,108 +1,92 @@
-# Feature Planner CLI (plan)
+# Product Agent CLI
 
-This is a standalone Python CLI tool that acts as an expert "Product Architect." It guides you through an interactive chat session with Google's generative AI to transform a high-level feature idea into a complete, actionable development plan. The tool automates the initial planning phase of software projects, allowing you to quickly define the "why," "what," and "how" of a new feature.
+Product Agent CLI is a command-line tool built on a simple, powerful principle: **plan before you write code**. It automates the critical planning phase of software development, turning a high-level feature idea into a clear, actionable, and developer-ready specification.
 
-## Features
+## Plan Before You Code
 
-*   **Interactive Chat**: Engages you in a stateful, terminal-based conversation to deeply explore and define your feature.
-*   **Context-Aware**: Automatically detects a `project.context.json` file in your project directory to understand your existing tech stack and design system, integrating these constraints into the planning process.
-*   **Generates Key Artifacts**: At the end of the planning session, the tool synthesizes the conversation into two crucial files:
-    *   `[feature].plan.md`: A human-readable Markdown document detailing the "why" and "what" of your feature, perfect for stakeholders and product managers.
-    *   `[feature].spec.md`: A machine-readable Markdown document with EARS-style requirements, designed for execution by an AI coding agent or a human developer.
-    *   `AGENT_INSTRUCTIONS.md`: A generic specification for an "Executor Agent," created once to guide automated development.
+The fastest way to build great software is to get the plan right *first*. Jumping directly into code without a clear specification often leads to wasted effort, misaligned expectations, and expensive rework. This tool helps you build a solid foundation before implementation begins.
 
-## Setup & Installation
+By using Product Agent CLI to create a plan, you can:
 
-To get started with the Feature Planner CLI, follow these steps:
+-   **Solidify the Scope:** Interactively breaks down a feature into detailed user stories and technical requirements, ensuring the "what" and "why" are crystal clear.
+-   **Prevent Unplanned Work:** Generates a specific list of files and components to be created or modified, minimizing scope creep and unforeseen complications.
+-   **Align the Entire Team:** Produces a clear, shareable plan that gets product, design, and engineering on the same page, creating a single source of truth for the work ahead.
 
-1.  **Clone the repository**:
-    ```bash
-    git clone https://github.com/nan-bit/product-agent-cli
-    cd product-agent-cli
-    ```
+## Designed for the Enterprise
 
-2.  **Create and Activate a Virtual Environment**:
-    It's highly recommended to use a virtual environment to manage project dependencies and avoid conflicts with your system's Python installation.
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
-    *(Note: If you're on a Python version older than 3.10 and encounter any errors, please consider upgrading your Python to 3.10 or newer for better compatibility with modern libraries.)*
+While many modern development tools excel at creating greenfield MVPs, they often fall short in complex enterprise environments. Building a feature that can actually make it to production requires navigating existing infrastructure, adhering to established technical standards, and respecting security protocols. This is the core challenge of "brownfield" development.
 
-3.  **Install the Tool**:
-    This command reads the `pyproject.toml` file and installs the tool (along with its dependencies) in "editable" mode (`-e`). This means any changes you make to the source code (e.g., in `src/product_agent_cli/main.py`) will automatically be reflected when you run the `plan` command.
-    ```bash
-    pip install -e .
-    ```
+Product Agent CLI solves this with a privacy-first, context-aware approach. Instead of requiring risky, broad access to your codebase, our tool empowers you to provide targeted context through a simple `project.context.json` file.
 
-4.  **Create your Google AI API Key file**:
-    The tool requires access to Google's generative AI.
-    *   Obtain an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
-    *   Copy the example environment file and add your API key to it:
-        ```bash
-        cp .env.example .env
-        nano .env  # Or use any text editor to add your key: GOOGLE_API_KEY="YOUR_API_KEY_HERE"
-        ```
+This approach ensures:
 
-## How to Use
+-   **A Frictionless Path to Production:** The generated plan is grounded in your technical reality. By specifying the stack, design systems, and testing frameworks, the output is immediately relevant and actionable for your developers.
+-   **Privacy and Security:** Maintain full control over your intellectual property. There is no need to expose your proprietary codebase to a third-party service, addressing a primary concern for enterprise security.
+-   **Developer Efficiency:** The planning is done right the first time. Developers receive a specification that’s already aligned with their environment, reducing the gap between planning and execution.
 
-**Important Note:** This tool generates new files (`.plan.md`, `.spec.md`, and `AGENT_INSTRUCTIONS.md`) in the directory where it's executed. To keep your projects organized and avoid clutter, it's highly recommended to navigate to an empty directory or a dedicated planning sub-directory before running the `plan` command.
+## Getting Started
 
-Once installed and configured, you can run the `plan` command from any directory (as long as your virtual environment is active).
+### Prerequisites
 
-**Step 1: Start a Planning Session**
+-   Python 3.9 or higher
+-   A Google API Key with the "Generative Language API" enabled.
 
-Initiate a new planning session by providing your high-level feature idea to the `plan` command. Remember to enclose your idea in quotes if it contains spaces.
+### Installation & Setup
+
+To get started, run the following commands in your terminal:
 
 ```bash
-# Example for a new project (greenfield)
-plan "Build a new login page"
+# Clone the repository and navigate into the directory
+git clone https://github.com/nan-bit/product-agent-cli
+cd product-agent-cli
 
-# Example for an existing project (brownfield) with project context
-# (Make sure you have a project.context.json file in your CWD)
-plan "Add 2-factor authentication"
+# Create a virtual environment and activate it
+python3 -m venv venv
+source venv/bin/activate
+
+# Install the package in editable mode
+pip install -e .
+
+# Create your environment file from the example
+cp .env.example .env
 ```
 
-**Step 2: Have an Interactive Conversation with the Architect Agent**
+Next, open the `.env` file and add your Google API key:
 
-The tool will start an interactive chat session. The AI "Product Architect" agent will guide you through a structured conversation to define the "what," "why," and "how" of your feature. Engage with the agent, answer its questions, and provide details as needed.
-
-When the agent has gathered all the necessary information, it will instruct you to end the conversation.
-
-**Step 3: Generate Your Artifacts**
-
-When instructed by the agent, type `done` (or `exit`, `save`, `finish`, `quit`, `q`) and press Enter to conclude the interactive session. The tool will then synthesize the conversation and generate the planning artifacts.
-
-```
-...
-Agent: Excellent. I have everything I need. To generate the final artifacts, please type 'done' or 'exit'.
-You: done
-
-Generating artifacts...
-✅ Created: ./your_generated_feature_name.plan.md
-✅ Created: ./your_generated_feature_name.spec.md
-✅ Created: ./AGENT_INSTRUCTIONS.md (Executor instructions)
-
-All files generated successfully!
-Your artifacts are ready for an execution agent.
+```ini
+GOOGLE_API_KEY="YOUR_API_KEY_HERE"
 ```
 
-**Step 4: Use the Artifacts**
+## How to Run It
 
-The generated `.plan.md` and `.spec.md` files are now ready to be used. The `.plan.md` provides a human-readable summary, while the `.spec.md` offers a detailed, structured specification for an AI "Executor Agent" (which you could build) or a human developer. The `AGENT_INSTRUCTIONS.md` file outlines how such an agent should behave.
+Once set up, you can start the feature planning flow with a single command.
 
-## Development
+1.  **(Optional) Add Project Context:**
+    Before running, you can add technical details to the `project.context.json` file. This helps the agent generate more accurate specifications for your project's tech stack.
 
-### Running Tests
+    *Example `project.context.json`:*
+    ```json
+    {
+      "tech_stack": "React, FastAPI, PostgreSQL",
+      "design_system": "Material UI",
+      "testing_framework": "Jest for frontend, Pytest for backend"
+    }
+    ```
 
-To ensure the project's quality and correctness, you can run the unit tests. Make sure `pytest` is installed in your virtual environment:
+2.  **Run the Agent:**
+    Start the interactive session by running:
+    ```bash
+    product-agent
+    ```
+    The agent will ask for the feature you want to build and guide you through the rest of the process.
 
-```bash
-pip install pytest
-```
+3.  **Review the Output:**
+    After the session, you will find the generated user stories, technical specifications, and file lists in the `output` directory.
 
-Then, run the tests from the root of the project:
+## Contributing
 
-```bash
-pytest
-```
+Contributions are welcome! If you have ideas for improvements or find a bug, please feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
