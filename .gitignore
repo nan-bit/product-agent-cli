@@ -119,3 +119,8 @@ cython_debug/
 
 # macOS
 .DS_Store
+
+# Product Agent CLI generated files
+*.plan.md
+*.spec.md
+AGENT_INSTRUCTIONS.md

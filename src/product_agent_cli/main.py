@@ -275,6 +275,9 @@ def main(console: Console = None):
         # We need to format the history for the *synthesis* prompts
         simple_history = []
         for msg in chat.history:
+            # We might have empty messages if the model returns nothing.
+            if not msg.parts:
+                continue
             # We skip the long system prompt
             if msg.parts[0].text == system_prompt:
                 continue
